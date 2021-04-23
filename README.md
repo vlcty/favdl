@@ -20,6 +20,7 @@ The browser / The JavaScript:
 - Navigate to your liked videos. The URL is: https://www.youtube.com/playlist?list=LL
 - The java script code you need to paste into the console works on the DOM and extracts all videolinks
 - All extraced video links are sent to the application via a REST call
+- Pro tip: YouTube only loads 100 Videos. So if you do this initially scroll to the bottom and THEN execute the js code. If you only want to "sync" the new ones 100 should be enough.
 
 youtube-dl:
 - Downloads all videos from the batchfile
