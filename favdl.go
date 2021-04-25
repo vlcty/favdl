@@ -39,6 +39,8 @@ func (bl *Batchlist) CreateBatchFile() {
 	}
 
 	file.Close()
+
+	fmt.Println("Wrote batch file")
 }
 
 func (bl *Batchlist) AddVideoID(videoID string) bool {
@@ -54,6 +56,8 @@ func (bl *Batchlist) SaveToStorage() {
 	file, _ := os.Create(FILENAME_STORAGE)
 	json.NewEncoder(file).Encode(bl.Videos)
 	file.Close()
+
+	fmt.Println("Wrote storage file")
 }
 
 func (bl *Batchlist) LoadStorageFile() error {
@@ -68,6 +72,8 @@ func (bl *Batchlist) LoadStorageFile() error {
 	if decodeErr := json.NewDecoder(file).Decode(&bl.Videos); decodeErr != nil {
 		return decodeErr
 	}
+
+	fmt.Println("Loaded storage file")
 
 	return nil
 }
@@ -94,6 +100,8 @@ func (bl *Batchlist) LoadYoutubeDLArchive() error {
 			}
 		}
 	}
+
+	fmt.Println("Loaded archive")
 
 	return nil
 }
