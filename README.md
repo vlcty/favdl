@@ -6,7 +6,7 @@ Requirements:
 
 - Working youtube-dl installation
 - Linux
-- Must know how hot open the developer tools in your browser (tested only with Firefox)
+- Must know how how open the developer tools in your browser (tested only with Firefox)
 
 ## How it works
 
