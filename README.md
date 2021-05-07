@@ -44,7 +44,7 @@ If you want to download new videos start from step 3. Easy, isn't it?
 
 The basic command you need to use:
 
-> youtube-dl --batch-file todownload.txt --download-archive archive.txt -o "downloads/%(title)s.%(ext)s"
+> youtube-dl --batch-file todownload.txt --download-archive archive.txt -o "downloads/%(title)s-%(id)s.%(ext)s"
 
 Add more parameters as required:
 
