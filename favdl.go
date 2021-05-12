@@ -147,7 +147,6 @@ func main() {
 	r.HandleFunc("/reloadarchive", ReloadArchive).Methods(http.MethodPost)
 
 	http.Handle("/", r)
-	r.Use(mux.CORSMethodMiddleware(r))
 
 	fmt.Println("Waiting for requests")
 
