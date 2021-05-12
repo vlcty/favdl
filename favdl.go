@@ -207,6 +207,7 @@ func VideoAddHandler(response http.ResponseWriter, request *http.Request) {
 	}
 
 	batchlist.SaveToStorage()
+	batchlist.CreateBatchFile()
 	fmt.Println("Added", addedVideoIDs, "new video IDs")
 
 	response.WriteHeader(http.StatusOK)
