@@ -121,8 +121,9 @@ func (bl *Batchlist) LoadYoutubeDLArchive() error {
 		if strings.Contains(line, "youtube ") {
 			videoid := strings.ReplaceAll(line, "youtube ", "")
 
-			if _, found := bl.Videos[videoid]; found {
-				// Mark as downloaded
+			if len(videoid) != 11 {
+				fmt.Println("No valid videoid found")
+			} else {
 				bl.Videos[videoid] = true
 			}
 		} else {
