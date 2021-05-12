@@ -75,11 +75,16 @@ func (bl *Batchlist) AddVideoID(videoID string) bool {
 }
 
 func (bl *Batchlist) SaveToStorage() {
-	file, _ := os.Create(FILENAME_STORAGE)
-	json.NewEncoder(file).Encode(bl.Videos)
-	file.Close()
+	file, fileError := os.Create(FILENAME_STORAGE)
 
-	fmt.Println("Wrote storage file")
+	if fileError != nil {
+		fmt.Println("Error writing storage file:", fileError.Error())
+	} else {
+		json.NewEncoder(file).Encode(bl.Videos)
+		file.Close()
+
+		fmt.Println("Wrote storage file")
+	}
 }
 
 func (bl *Batchlist) LoadStorageFile() error {
@@ -120,6 +125,8 @@ func (bl *Batchlist) LoadYoutubeDLArchive() error {
 				// Mark as downloaded
 				bl.Videos[videoid] = true
 			}
+		} else {
+			fmt.Println("Skipping invalid line:", line)
 		}
 	}
 
@@ -134,10 +141,12 @@ func main() {
 	batchlist = NewBatchlist()
 	if e := batchlist.LoadStorageFile(); e != nil {
 		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	if e := batchlist.LoadYoutubeDLArchive(); e != nil {
 		fmt.Println(e)
+		os.Exit(1)
 	}
 
 	r := mux.NewRouter()
@@ -205,9 +214,10 @@ func VideoAddHandler(response http.ResponseWriter, request *http.Request) {
 		}
 	}
 
+	fmt.Println("Added", addedVideoIDs, "new video IDs")
+
 	batchlist.SaveToStorage()
 	batchlist.CreateBatchFile()
-	fmt.Println("Added", addedVideoIDs, "new video IDs")
 
 	response.WriteHeader(http.StatusOK)
 }
