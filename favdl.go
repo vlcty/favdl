@@ -115,19 +115,21 @@ func (bl *Batchlist) LoadYoutubeDLArchive() error {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
+	linecounter := 0
 	for scanner.Scan() {
+		linecounter++
 		line := scanner.Text()
 
 		if strings.Contains(line, "youtube ") {
 			videoid := strings.ReplaceAll(line, "youtube ", "")
 
 			if len(videoid) != 11 {
-				fmt.Println("No valid videoid found")
+				fmt.Printf("Archive line %d: No valid videoid found! Extracted: %q\n", linecounter, videoid)
 			} else {
 				bl.Videos[videoid] = true
 			}
 		} else {
-			fmt.Println("Skipping invalid line:", line)
+			fmt.Printf("Archive line %d: Skipping invalid line: %q\n", linecounter, line)
 		}
 	}
 
